@@ -5,7 +5,14 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = Company.all
-    respond_with(@companies)
+    
+    respond_to do |format|
+      # responds to both html and csv format
+      # passing of the block companies instance variable rendered as text to csv
+      format.html
+      format.csv {render text: @companies.to_csv}
+    end
+    
   end
 
   def show
