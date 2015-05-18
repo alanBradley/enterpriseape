@@ -11,6 +11,9 @@ class InvoicesController < ApplicationController
   # GET /invoices/1
   # GET /invoices/1.json
   def show
+    # finding the element with the id sent withing the parameters and setting it as instance variable
+    @invoice = Invoice.find(params[:id])
+    @purchases = @invoice.purchases
   end
 
   # GET /invoices/new
