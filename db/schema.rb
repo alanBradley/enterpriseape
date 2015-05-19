@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150518140519) do
     t.datetime "date"
     t.string   "company"
     t.decimal  "tax"
-    t.string   "salesperson"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status_type"

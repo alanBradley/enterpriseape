@@ -11,7 +11,6 @@ class InvoicesController < ApplicationController
   # GET /invoices/1
   # GET /invoices/1.json
   def show
-    # finding the element with the id sent withing the parameters and setting it as instance variable
     @invoice = Invoice.find(params[:id])
     @purchases = @invoice.purchases
   end
@@ -33,9 +32,9 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       if @invoice.save
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
+        format.json { render action: 'show', status: :created, location: @invoice }
       else
-        format.html { render :new }
+        format.html { render action: 'new' }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end
@@ -47,9 +46,9 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       if @invoice.update(invoice_params)
         format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @invoice }
+        format.json { head :no_content }
       else
-        format.html { render :edit }
+        format.html { render action: 'edit' }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end
@@ -60,7 +59,7 @@ class InvoicesController < ApplicationController
   def destroy
     @invoice.destroy
     respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+      format.html { redirect_to invoices_url }
       format.json { head :no_content }
     end
   end
@@ -73,6 +72,6 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:date, :company, :tax, :employee_id)
+      params.require(:invoice).permit(:date, :company, :tax, :employee_id, :status_type)
     end
 end
